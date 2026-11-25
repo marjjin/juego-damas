@@ -1,0 +1,44 @@
+:root {
+  --bg: #14100d;
+  --surface: #221a14;
+  --surface-2: #2d231b;
+  --border: #4a3a2c;
+  --text: #efe4d2;
+  --muted: #b3a38c;
+  --accent: #d6a740;
+  --accent-text: #1c140c;
+  --danger: #d9705a;
+  --ok: #6fd08c;
+  --radius: 12px;
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  font: 16px/1.5 var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 50% 0%, #3a2a1c 0%, transparent 60%),
+    var(--bg);
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}

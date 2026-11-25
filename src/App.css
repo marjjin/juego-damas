@@ -1,0 +1,388 @@
+/* Pantallas de menú */
+.screen {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.card {
+  width: min(420px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 0.45);
+}
+
+.card.wide {
+  width: min(560px, 100%);
+}
+
+.card h2 {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0 0 16px;
+}
+
+.title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 2.6rem;
+  letter-spacing: 0.01em;
+  margin: 0 0 6px;
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.small {
+  font-size: 0.875rem;
+}
+
+.stack {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 13px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+input:focus {
+  border-color: var(--accent);
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 11px 18px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.15s, border-color 0.15s, transform 0.05s;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #e4b84f;
+}
+
+.btn.small {
+  padding: 7px 12px;
+  font-size: 0.875rem;
+}
+
+.btn.danger {
+  color: var(--danger);
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.875rem;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.who {
+  display: grid;
+  justify-items: end;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.who strong {
+  color: var(--text);
+}
+
+.panel {
+  display: grid;
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+}
+
+.panel h2 {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 0;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.segmented button {
+  border: none;
+  background: none;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.segmented button.active {
+  background: var(--surface-2);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.join-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+.code-input {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-family: ui-monospace, Consolas, monospace;
+}
+
+.notice {
+  margin: 0;
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 0.9rem;
+}
+
+.rules {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.rules summary {
+  cursor: pointer;
+  color: var(--text);
+}
+
+.rules ul {
+  margin: 10px 0 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 4px;
+}
+
+/* Partida */
+.game {
+  position: fixed;
+  inset: 0;
+}
+
+.board-canvas {
+  position: absolute !important;
+  inset: 0;
+}
+
+.hud {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  pointer-events: none;
+}
+
+.hud > * {
+  pointer-events: auto;
+}
+
+.hud.top {
+  top: 0;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, rgb(20 16 13 / 0.85), transparent);
+}
+
+.hud.bottom {
+  bottom: 0;
+  flex-wrap: wrap;
+  background: linear-gradient(to top, rgb(20 16 13 / 0.85), transparent);
+}
+
+.turn {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  text-align: center;
+}
+
+.player-tag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px 8px 10px;
+  border-radius: 999px;
+  background: rgb(34 26 20 / 0.85);
+  border: 1px solid var(--border);
+  min-width: 0;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.player-tag.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgb(214 167 64 / 0.2);
+}
+
+.player-name {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+
+.player-meta {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.chip {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.chip-white {
+  background: #f3ead8;
+  box-shadow: inset 0 0 0 4px #cfc1a3;
+}
+
+.chip-black {
+  background: #2a1f1d;
+  box-shadow: inset 0 0 0 4px #120c0b, 0 0 0 1px #5a4636;
+}
+
+.hint {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.room-tag {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(10 8 6 / 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.room-code {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 2.4rem;
+  letter-spacing: 0.3em;
+  text-align: center;
+  padding: 14px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--accent);
+}
+
+@media (max-width: 640px) {
+  .hud.top {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .turn {
+    order: -1;
+    width: 100%;
+  }
+
+  .player-name {
+    max-width: 110px;
+  }
+
+  .hint {
+    display: none;
+  }
+}
