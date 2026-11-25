@@ -1,8 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
 import { initialState } from '../game/rules.js'
 
-const url = import.meta.env.VITE_SUPABASE_URL
-const key = import.meta.env.VITE_SUPABASE_ANON_KEY
+// trim(): un salto de línea pegado al cargar la variable rompe la conexión de Realtime.
+const url = import.meta.env.VITE_SUPABASE_URL?.trim()
+const key = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim()
 
 export const supabaseConfigured = Boolean(url && key)
 export const supabase = supabaseConfigured ? createClient(url, key) : null

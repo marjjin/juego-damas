@@ -10,29 +10,43 @@ export default function OnlineGame({ player, code, joining, onExit }) {
   const [online, setOnline] = useState([])
   const [copied, setCopied] = useState(false)
   const [sending, setSending] = useState(false)
+  const [inviteHidden, setInviteHidden] = useState(false)
 
   // Cargar o unirse a la sala, y escuchar cambios en tiempo real.
   useEffect(() => {
     if (!supabaseConfigured) return
     let active = true
+
+    // Ignora datos repetidos y actualizaciones viejas que lleguen fuera de orden.
+    const merge = (r) => {
+      if (!active || !r) return
+      setRoom((prev) => {
+        if (!prev) return r
+        if (r.move_no < prev.move_no) return prev
+        if (r.move_no === prev.move_no && r.updated_at === prev.updated_at) return prev
+        return r
+      })
+    }
+
     const load = joining ? joinRoom(code, player) : fetchRoom(code)
     load
       .then((r) => {
         if (!active) return
         if (!r) setError(`No existe una sala con el código ${code}.`)
-        else setRoom(r)
+        else merge(r)
       })
       .catch((e) => active && setError(e.message))
 
-    const unsubscribe = subscribeRoom(code, player, {
-      onChange: (r) => {
-        // Ignorar actualizaciones viejas que lleguen fuera de orden.
-        setRoom((prev) => (!prev || r.move_no >= prev.move_no ? r : prev))
-      },
-      onPresence: setOnline,
-    })
+    const unsubscribe = subscribeRoom(code, player, { onChange: merge, onPresence: setOnline })
+
+    // Respaldo por si se corta la conexión en tiempo real.
+    const poll = setInterval(() => {
+      fetchRoom(code).then(merge).catch(() => {})
+    }, 4000)
+
     return () => {
       active = false
+      clearInterval(poll)
       unsubscribe()
     }
   }, [code, joining, player])
@@ -109,10 +123,15 @@ export default function OnlineGame({ player, code, joining, onExit }) {
   const result = resultText(state, names)
 
   let overlay = null
-  if (waiting) {
+  if (waiting && !inviteHidden) {
     overlay = (
       <div className="card">
-        <h2>Sala creada</h2>
+        <div className="card-head">
+          <h2>Sala creada</h2>
+          <button className="close" aria-label="Cerrar" onClick={() => setInviteHidden(true)}>
+            ×
+          </button>
+        </div>
         <p>Pasale este código a tu rival para que entre desde “Unirme a la sala”:</p>
         <div className="room-code">{room.code}</div>
         <div className="row">
@@ -160,6 +179,11 @@ export default function OnlineGame({ player, code, joining, onExit }) {
           {!waiting && !state.winner && (
             <button className="btn small danger" onClick={resign} disabled={sending}>
               Abandonar
+            </button>
+          )}
+          {waiting && inviteHidden && (
+            <button className="btn small" onClick={() => setInviteHidden(false)}>
+              Ver código de invitación
             </button>
           )}
           <span className="room-tag">Sala {room.code}</span>

@@ -61,8 +61,8 @@ export default function Menu({ player, onLogout, onPlayComputer, onEnterRoom }) 
           <h2>Online</h2>
           {!supabaseConfigured ? (
             <p className="notice">
-              El juego online no está configurado. Falta cargar VITE_SUPABASE_URL y
-              VITE_SUPABASE_ANON_KEY en el archivo .env.local (ver README).
+              El juego online no está configurado. Faltan las variables VITE_SUPABASE_URL y
+              VITE_SUPABASE_ANON_KEY (en local van en .env.local; en Vercel, en Environment Variables).
             </p>
           ) : (
             <>
